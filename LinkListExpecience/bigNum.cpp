@@ -113,6 +113,8 @@ void bigNum::generateNum()
 }
 
 
+
+
 int main()
 {
 	bigNum num1;
