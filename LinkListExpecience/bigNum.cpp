@@ -11,7 +11,6 @@ class bigNum
 {
 public:
 	bigNum() { front = new Node; front->next = NULL; tail = front; positive = true; }
-	bigNum(int a[], int n);
 	~bigNum();				//销毁
 	void Show();				//遍历展示
 	void generateNum();
@@ -23,6 +22,36 @@ private:
 	bool positive;
 
 };
+
+bigNum::~bigNum()
+{
+	while (front)
+	{
+		Node* p = front;
+		front = front->next;
+		delete p;
+	}
+}
+
+void bigNum::Show()
+{
+	if(positive==false)
+	{
+		Node* p=front;
+		if(p->next==NULL)
+		{
+			cout<<"数据输入存在错误"<<endl;
+			return;
+		}
+		cout<<"-";
+		while(p->next)
+		{
+			p=p->next;
+			cout<<p->data;
+			cout<<endl;
+		}
+	}
+}
 
 void bigNum::Put(int x)
 {
@@ -63,7 +92,9 @@ void bigNum::generateNum()
 
 int main()
 {
-
+	bigNum num1;
+	num1.generateNum();
+	num1.Show();
 
 	return 0;
 }
