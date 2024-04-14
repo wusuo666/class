@@ -11,10 +11,11 @@ class bigNum
 {
 public:
 	bigNum() { front = new Node; front->next = NULL; tail = front; positive = true; }
-	~bigNum();				//销毁
-	void Show();				//遍历展示
-	void generateNum();
+	~bigNum();						//销毁
+	void Show();					//遍历展示
+	void generateNum();				//输入数字
 	void Put(int x);				//加入
+	bool GetSign();					//获取正负号
 
 private:
 	Node* front;
@@ -22,6 +23,11 @@ private:
 	bool positive;
 
 };
+
+bool bigNum::GetSign()
+{
+	return positive;
+}
 
 bigNum::~bigNum()
 {
@@ -38,18 +44,23 @@ void bigNum::Show()
 	if(positive==false)
 	{
 		Node* p=front;
-		if(p->next==NULL)
-		{
-			cout<<"数据输入存在错误"<<endl;
-			return;
-		}
 		cout<<"-";
 		while(p->next)
 		{
 			p=p->next;
 			cout<<p->data;
-			cout<<endl;
 		}
+		cout<<endl;
+	}
+	else
+	{
+		Node* p=front;
+		while(p->next)
+		{
+			p=p->next;
+			cout<<p->data;
+		}
+		cout<<endl;
 	}
 }
 
@@ -73,7 +84,7 @@ void bigNum::generateNum()
 		cin.get(ch);
 		while (ch != '\n')
 		{
-			Put((int)ch);
+			Put((int)ch-48);
 			cin.get(ch);
 		}
 	}
@@ -82,7 +93,7 @@ void bigNum::generateNum()
 		positive = true;
 		while (ch != '\n')
 		{
-			Put((int)ch);
+			Put((int)ch-48);
 			cin.get(ch);
 		}
 
@@ -95,6 +106,7 @@ int main()
 	bigNum num1;
 	num1.generateNum();
 	num1.Show();
+	cout<<num1.GetSign();
 
 	return 0;
 }
