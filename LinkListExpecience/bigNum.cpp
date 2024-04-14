@@ -1,4 +1,5 @@
 #include<iostream>
+#include<stack>
 using namespace std;
 
 struct Node
@@ -43,22 +44,34 @@ void bigNum::Show()
 {
 	if(positive==false)
 	{
+		stack<int> myStack;
 		Node* p=front;
 		cout<<"-";
 		while(p->next)
 		{
 			p=p->next;
-			cout<<p->data;
+			myStack.push(p->data);
+		}
+		while(!myStack.empty())
+		{
+			cout<<myStack.top();
+			myStack.pop();
 		}
 		cout<<endl;
 	}
 	else
 	{
+		stack<int> myStack;
 		Node* p=front;
 		while(p->next)
 		{
 			p=p->next;
-			cout<<p->data;
+			myStack.push(p->data);
+		}
+		while(!myStack.empty())
+		{
+			cout<<myStack.top();
+			myStack.pop();
 		}
 		cout<<endl;
 	}
@@ -68,9 +81,8 @@ void bigNum::Put(int x)
 {
 	Node* s = new Node;
 	s->data = x;
-	s->next = tail->next;
-	tail->next = s;
-	tail = tail->next;
+	s->next = front->next;
+	front->next=s;
 
 }
 
