@@ -204,6 +204,7 @@ void bigPlus(bigNum* num1,bigNum* num2,bigNum* res)				//大整数的加法
 {
 	if(num1->GetSign()==num2->GetSign())			//符号相同条件
 	{
+		if(num1->GetSign()==false)res->ChangeSign();
 		if(num1->GetLength()>=num2->GetLength())
 		{
 			int judge=0;
