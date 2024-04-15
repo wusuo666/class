@@ -144,7 +144,6 @@ Node<T>* LinkList<T>::Get(int i)
 	Node<T>* p = front;
 	for (int j = 0; j < i; j++)
 	{
-		if (p == NULL)throw ("删除位置异常\n");
 		p = p->next;
 	}
 	return p;
