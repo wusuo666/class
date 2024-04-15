@@ -427,16 +427,4 @@ int main()
 		else if(operate=='0')return 0;
 		else cout<<"请输入3个选项其中的一个"<<endl;
 	}
-	// bigNum num01;
-	// bigNum num02;
-	// cout<<"请输入Num1数值:";
-	// num01.generateNum();
-	// cout<<"请输入Num2数值:";
-	// num02.generateNum();
-	// cout<<"Num1-Num2=";
-	// bigNum resMinus;
-	// bigMinus(&num01,&num02,&resMinus);
-	// resMinus.Show();
-	// cout<<endl;
-	// cout<<"num1和num2比大小"<<compareBigNumWithOutSign(&num01,&num02);
 }
