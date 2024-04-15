@@ -23,6 +23,7 @@ public:
 	int GetData();					//获取数值
 	Node* Get(int i);				//按位查找
 	void ChangeSign();				//变号
+	void DeleteZero();				//删除零
 
 private:
 	Node* front;
@@ -30,6 +31,22 @@ private:
 	bool positive;
 
 };
+
+void bigNum::DeleteZero()
+{
+	while(tail->data==0)
+	{
+		Node* p=front;
+		while(p->next!=tail)
+		{
+			p=p->next;
+		}
+		tail=p;
+		p=p->next;
+		tail->next=p->next;
+		delete p;
+	}
+}
 
 void bigNum::ChangeSign()
 {
@@ -169,7 +186,7 @@ int compareBigNumWithOutSign(bigNum* num1,bigNum* num2)			//不考虑符号的�
 	}
 }
 
-void bigPlus(bigNum* num1,bigNum* num2,bigNum* res)
+void bigPlus(bigNum* num1,bigNum* num2,bigNum* res)				//大整数的加法
 {
 	if(num1->GetSign()==num2->GetSign())			//符号相同条件
 	{
@@ -235,7 +252,7 @@ void bigPlus(bigNum* num1,bigNum* num2,bigNum* res)
 	}
 	else										//符号不相同
 	{
-		if(num1->GetSign()==true)
+		if(num1->GetSign()==true)				//num1为正
 		{
 			if(compareBigNumWithOutSign(num1,num2)==1)		//应为为比较num1和num2的大小
 			{
@@ -253,20 +270,103 @@ void bigPlus(bigNum* num1,bigNum* num2,bigNum* res)
 						judge=0;
 					}
 				}
+				for(int i=num2->GetLength()+1;i<=num1->GetLength();i++)		//补全
+				{
+					res->PutTail(num1->Get(i)->data+judge);
+					judge=0;
+				}
 			}
-			else if(compareBigNumWithOutSign(num1,num2)==0)
+			else if(compareBigNumWithOutSign(num1,num2)==0)				//相等
 			{
 				res->Put(0);
 			}
-			else
+			else														//num1小于num2
 			{
-
+				res->ChangeSign();
+				int judge=0;
+				for(int i=1;i<=num1->GetLength();i++)
+				{
+					if((num2->Get(i)->data-num1->Get(i)->data+judge)<0)		//需要借位
+					{
+						res->PutTail(num2->Get(i)->data-num1->Get(i)->data+judge+10);
+						judge=-1;
+					}
+					else											//不用借位
+					{
+						res->PutTail(num2->Get(i)->data-num1->Get(i)->data+judge);
+						judge=0;
+					}
+				}
+				for(int i=num1->GetLength()+1;i<=num2->GetLength();i++)		//补全
+				{
+					res->PutTail(num2->Get(i)->data+judge);
+					judge=0;
+				}
+			}
+		}
+		else												//num1为负
+		{
+			res->ChangeSign();
+			if(compareBigNumWithOutSign(num1,num2)==1)		//应为为比较num1和num2的大小
+			{
+				int judge=0;
+				for(int i=1;i<=num2->GetLength();i++)
+				{
+					if((num1->Get(i)->data-num2->Get(i)->data+judge)<0)		//需要借位
+					{
+						res->PutTail(num1->Get(i)->data-num2->Get(i)->data+judge+10);
+						judge=-1;
+					}
+					else											//不用借位
+					{
+						res->PutTail(num1->Get(i)->data-num2->Get(i)->data+judge);
+						judge=0;
+					}
+				}
+				for(int i=num2->GetLength()+1;i<=num1->GetLength();i++)		//补全
+				{
+					res->PutTail(num1->Get(i)->data+judge);
+					judge=0;
+				}
+			}
+			else if(compareBigNumWithOutSign(num1,num2)==0)				//相等
+			{
+				res->Put(0);
+			}
+			else														//num1小于num2
+			{
+				res->ChangeSign();
+				int judge=0;
+				for(int i=1;i<=num1->GetLength();i++)
+				{
+					if((num2->Get(i)->data-num1->Get(i)->data+judge)<0)		//需要借位
+					{
+						res->PutTail(num2->Get(i)->data-num1->Get(i)->data+judge+10);
+						judge=-1;
+					}
+					else											//不用借位
+					{
+						res->PutTail(num2->Get(i)->data-num1->Get(i)->data+judge);
+						judge=0;
+					}
+				}
+				for(int i=num1->GetLength()+1;i<=num2->GetLength();i++)		//补全
+				{
+					res->PutTail(num2->Get(i)->data+judge);
+					judge=0;
+				}
 			}
 		}
 	}
+	res->DeleteZero();
 }
 
-
+void bigMinus(bigNum* num1,bigNum* num2,bigNum* res)			//大整数的减法
+{
+	num2->ChangeSign();
+	bigPlus(num1,num2,res);
+	num2->ChangeSign();
+}
 
 int main()
 {
@@ -277,9 +377,13 @@ int main()
 	cout<<"请输入Num2数值:";
 	num02.generateNum();
 	cout<<"Num1+Num2=";
-	bigNum res;
-	bigPlus(&num01,&num02,&res);
-	res.Show();
+	bigNum resPlus;
+	bigPlus(&num01,&num02,&resPlus);
+	resPlus.Show();
+	cout<<"Num1-Num2=";
+	bigNum resMinus;
+	bigMinus(&num01,&num02,&resMinus);
+	resMinus.Show();
 
 	return 0;
 }
