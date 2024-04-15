@@ -21,7 +21,8 @@ public:
 	bool GetSign();					//获取正负号
 	int GetLength();				//获取长度
 	int GetData();					//获取数值
-	Node* Get(int i);		//按位查找
+	Node* Get(int i);				//按位查找
+	void ChangeSign();				//变号
 
 private:
 	Node* front;
@@ -29,6 +30,11 @@ private:
 	bool positive;
 
 };
+
+void bigNum::ChangeSign()
+{
+	positive=!positive;
+}
 
 bool bigNum::GetSign()
 {
@@ -148,6 +154,21 @@ void bigNum::generateNum()
 	}
 }
 
+int compareBigNumWithOutSign(bigNum* num1,bigNum* num2)			//不考虑符号的比大小
+{
+	if(num1->GetLength()>num2->GetLength())return 1;
+	else if(num1->GetLength()<num2->GetLength())return -1;
+	else
+	{
+		for(int i=1;i<=num1->GetLength();i++)
+		{
+			if(num1->Get(i)->data>num2->Get(i)->data) return 1;
+			else if(num1->Get(i)->data<num2->Get(i)->data)return -1;
+		}
+		return 0;
+	}
+}
+
 void bigPlus(bigNum* num1,bigNum* num2,bigNum* res)
 {
 	if(num1->GetSign()==num2->GetSign())			//符号相同条件
@@ -157,7 +178,7 @@ void bigPlus(bigNum* num1,bigNum* num2,bigNum* res)
 			int judge=0;
 			for(int i=1;i<=num2->GetLength();i++)	
 			{
-				if((num1->Get(i)->data+num2->Get(i)->data)>=10)		//要进位
+				if((num1->Get(i)->data+num2->Get(i)->data+judge)>=10)		//要进位
 				{
 					res->PutTail(num1->Get(i)->data+num2->Get(i)->data+judge-10);
 					// 调试
@@ -212,7 +233,39 @@ void bigPlus(bigNum* num1,bigNum* num2,bigNum* res)
 			}
 		}
 	}
+	else										//符号不相同
+	{
+		if(num1->GetSign()==true)
+		{
+			if(compareBigNumWithOutSign(num1,num2)==1)		//应为为比较num1和num2的大小
+			{
+				int judge=0;
+				for(int i=1;i<=num2->GetLength();i++)
+				{
+					if((num1->Get(i)->data-num2->Get(i)->data+judge)<0)		//需要借位
+					{
+						res->PutTail(num1->Get(i)->data-num2->Get(i)->data+judge+10);
+						judge=-1;
+					}
+					else											//不用借位
+					{
+						res->PutTail(num1->Get(i)->data-num2->Get(i)->data+judge);
+						judge=0;
+					}
+				}
+			}
+			else if(compareBigNumWithOutSign(num1,num2)==0)
+			{
+				res->Put(0);
+			}
+			else
+			{
+
+			}
+		}
+	}
 }
+
 
 
 int main()
@@ -227,7 +280,6 @@ int main()
 	bigNum res;
 	bigPlus(&num01,&num02,&res);
 	res.Show();
-
 
 	return 0;
 }
