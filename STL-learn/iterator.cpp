@@ -23,11 +23,11 @@ int main()
 
 	//迭代器相关函数
 	//构造一个迭代器对象
-	vector<int>::iterator it_b,it_e,it;							//vector的迭代器属于“随机访问迭代器”：迭代器一次可以移动多个位置
-	it_b = vecIntA.begin();										//指向第一个元素
+	vector<int>::iterator it_b,it_e,it;					//vector的迭代器属于“随机访问迭代器”：迭代器一次可以移动多个位置
+	it_b = vecIntA.begin();								//指向第一个元素
 	cout << "begin()指向第一个元素:" << *it_b;
 	cout << endl;
-	it_e = vecIntA.end();										//指向末尾元素的下一个
+	it_e = vecIntA.end();								//指向末尾元素的下一个
 
 	cout << "利用迭代器遍历:";
 	for (it = vecIntA.begin(); it != vecIntA.end(); it++)

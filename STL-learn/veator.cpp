@@ -44,25 +44,25 @@ int main()
 	vector<int> vecIntD;
 	int iArray[] = { 0,1,2,3,4 };
 	v1.assign(iArray, iArray + 5);					//1、用其他容器的迭代器作参数进行赋值
-	cout << "赋值后v1如下：" << "\t";
+	cout << "赋值后v1如下:" << "\t";
 	Print(v1);
 
 	v2.assign(v1.begin(), v1.end());				//2、用vector的迭代器作参数进行赋值
-	cout << "赋值后v2如下：" << "\t";
+	cout << "赋值后v2如下:" << "\t";
 	Print(v2);
 
 	v3.assign(3, 9);								//3、赋值3个9到vecIntC里面
-	cout << "赋值后v3如下：" << "\t";
+	cout << "赋值后v3如下:" << "\t";
 	Print(v3);
 
 	v4 = v1;										//4、利用等号的重载赋值
-	cout << "赋值后v4如下：" << "\t";
+	cout << "赋值后v4如下:" << "\t";
 	Print(v4);
 
 	v4.swap(v3);									//5、两个vector互换
-	cout << "互换后v3'如下：" << "\t";
+	cout << "互换后v3'如下:" << "\t";
 	Print(v3);
-	cout << "互换后v4'如下：" << "\t";
+	cout << "互换后v4'如下:" << "\t";
 	Print(v4);
 	cout << endl;
 
@@ -109,7 +109,7 @@ int main()
 	cout << "(在第3个位置插入100)vecInt如下：" << "\t";			//注意：第一个参数应该为指针，而不是下标
 	Print(vecInt);
 	
-	vecInt.insert(vecInt.begin() + 3, 3, 1000);					//4、在指定位置插入多个相同元素
+	vecInt.insert(vecInt.begin() + 3, 3, 100);					//4、在指定位置插入多个相同元素
 	cout << "(在第3个位置插入3个100)vecInt如下：" << "\t";
 	Print(vecInt);
 
