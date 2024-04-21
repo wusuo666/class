@@ -70,7 +70,7 @@ int main()
 	vector<int> vecInt = { 1,2,3,4 };
 	cout << "vecInt如下：" << "\t";
 	Print(vecInt);
-	int n1 = vecInt.size();										//1、通过sizi函数访问元素个数
+	int n1 = vecInt.size();										//1、通过size函数访问元素个数
 	cout << "vecInt中元素的个数为：" << n1 << endl;
 
 	vector<int> vecEmpty;
@@ -89,6 +89,8 @@ int main()
 	cout << "(resize减短元素)vecInt如下：" << "\t";
 	Print(vecInt);
 	cout << endl;
+
+	cout << "vecInt的容量为：" << vecInt.capacity() << endl;			 //6、capacity();返回容器的容量
 
 	//四、vector元素的访问方式
 	//vecInt[8];								//1、通过下标访问可能会造成程序异常，且不会反馈错误信息
@@ -118,6 +120,16 @@ int main()
 	cout << "(在第6个位置插入指定区间内容)vecInt如下：" << "\t";
 	Print(vecInt);
 	cout << endl;
+
+	vecInt.erase(vecInt.begin()); 									//erase(const_iterator pos); 删除迭代器指向的元素
+	cout << "删除迭代器指向的元素后vecInt: "<<"\t";
+	Print(vecInt);
+
+	vecInt.erase(vecInt.begin(),vecInt.end()); 							//erase(const_iterator begin,const_iterator end); 删除迭代器从begin到end之间的元素
+	cout << "删除迭代器从begin到end之间的元素后vecInt: "<<"\t";
+	Print(vecInt);
+
+	//vecInt.clear()可产生相同的清空vector的效果
 	
 	return 0;
 }
