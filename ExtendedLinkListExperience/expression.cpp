@@ -25,7 +25,7 @@ int input(stringstream& ss,stack<char>& sc,stack<int>& si)
         int num=0;
         for(int i=0;i<tempNum.size();i++)
         {
-            num+=pow(10,tempNum.size()-i-1) * tempNum.pop_back();
+            // num+=pow(10,tempNum.size()-i-1) * tempNum.pop_back();
         }
         
     }
