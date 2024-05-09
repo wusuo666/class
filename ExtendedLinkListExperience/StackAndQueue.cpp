@@ -77,37 +77,40 @@ T shareStack<T>::pops2()
 
 int main()
 {
-    shareStack<int> shareExp;
-    for(int i=0;i<5;i++)        //调用两个push函数来初始化
-    {
-        shareExp.pushs1(i);
+    try{
+        shareStack<int> shareExp;
+        for(int i=0;i<5;i++)        //调用两个push函数来初始化
+        {
+            shareExp.pushs1(i);
+        }
+        for(int i=5;i<10;i++)
+        {
+            shareExp.pushs2(i);
+        }
+
+        cout<<"s1是否为空:"<<shareExp.emptys1()<<endl;        //调用empty函数
+        cout<<"s2是否为空:"<<shareExp.emptys2()<<endl;
+
+        cout<<"s1栈顶元素为:"<<shareExp.getTops1()<<endl;       //调用getTop函数
+        cout<<"s2栈顶元素为:"<<shareExp.getTops2()<<endl;
+
+        cout<<"s1依次出栈:"<<"\t";                             //调用pop函数
+        for(int i=0;i<5;i++)
+        {
+            cout<<shareExp.pops1()<<"\t";
+        }
+        cout<<endl;
+        cout<<"s2依次出栈:"<<"\t";
+        for(int i=0;i<5;i++)
+        {
+            cout<<shareExp.pops2()<<"\t";
+        }
+        cout<<endl;
+
+        cout<<"s1是否为空:"<<shareExp.emptys1()<<endl;        //调用empty函数
+        cout<<"s2是否为空:"<<shareExp.emptys2()<<endl;
+    }catch(const char* &e){
+        cout<<e<<endl;
     }
-    for(int i=5;i<10;i++)
-    {
-        shareExp.pushs2(i);
-    }
-
-    cout<<"s1是否为空:"<<shareExp.emptys1()<<endl;        //调用empty函数
-    cout<<"s2是否为空:"<<shareExp.emptys2()<<endl;
-
-    cout<<"s1栈顶元素为:"<<shareExp.getTops1()<<endl;       //调用getTop函数
-    cout<<"s2栈顶元素为:"<<shareExp.getTops2()<<endl;
-
-    cout<<"s1依次出栈:"<<"\t";                             //调用pop函数
-    for(int i=0;i<5;i++)
-    {
-        cout<<shareExp.pops1()<<"\t";
-    }
-    cout<<endl;
-    cout<<"s2依次出栈:"<<"\t";
-    for(int i=0;i<5;i++)
-    {
-        cout<<shareExp.pops2()<<"\t";
-    }
-    cout<<endl;
-
-    cout<<"s1是否为空:"<<shareExp.emptys1()<<endl;        //调用empty函数
-    cout<<"s2是否为空:"<<shareExp.emptys2()<<endl;
-
     return 0;
 }

@@ -2,22 +2,10 @@
 #include<vector>
 #include<cmath>
 using namespace std;
-//标记数组
-bool vis[30]={false};//列的标记数组，初始为false
-bool lr[30]={false};//左对角线的标记数组，初始为false 
-bool fr[30]={false};//右对角线的标记数组，初始为false 
 
 int cnt=0;//记录所有摆放方法的数量
 const int n = 8;
 
-
-bool judge(int x,int y)//判断当前位置是否能摆放皇后，当前位置为（x,y）
-{
-    // cout<<"("<<vis[y]<<lr[y-x+n]<<fr[x+y]<<")";
-    if(vis[y] || lr[y-x+n] || fr[x+y])
-        return false;
-    return true;
-}
 int available(vector<int> v,int k)//if position k is available for chess
 {
     int pos = v.size(); 
